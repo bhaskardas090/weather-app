@@ -1,0 +1,42 @@
+.historyForecast{
+ height: 80vh;
+ display: grid;
+ align-items: center;
+ .container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: auto 2rem;
+ }
+ .currentTemp{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2rem;
+  h1{
+   font-weight: 200;
+  }
+  border-bottom: 1px solid rgb(186, 209, 230);
+ }
+
+
+ .forecastDetails{
+  .forecastDetailsItem{
+   display: flex;
+   align-items: center;
+   img{
+    width: 30px;
+    height: 30px;
+    margin-right: 1rem;
+   }
+   p{
+    font-weight: 400;
+    margin-right: .5rem;
+   }
+  }
+ }
+
+}
