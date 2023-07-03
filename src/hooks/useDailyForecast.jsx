@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 
+const api = import.meta.env.VITE_WEATHER_API;
+const key = import.meta.env.VITE_WEATHER_API_KEY;
+
 function useDailyForecast(latitude, longitude) {
   const [data, setData] = useState(null);
   const getData = async (lat, lon) => {
     const response = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,hourly,daily&appid=3e3dc1035300fb294651b533fa5d61df`
+      `${api}?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,hourly,daily&appid=${key}`
     );
     const data = await response.json();
     setData(data);

@@ -1,5 +1,5 @@
 import { ImageOverlay, MapContainer, TileLayer, useMap } from 'react-leaflet';
-
+import { useEffect, useRef, useState } from 'react';
 import 'leaflet/dist/leaflet.css';
 
 function lon2tile(lon, zoom) {
@@ -20,30 +20,41 @@ function lat2tile(lat, zoom) {
 }
 
 const MapImageOverlay = (props) => {
-  const x = lon2tile(props.lon, props.zoom);
-  const y = lat2tile(props.lat, props.zoom);
+  // const x = lon2tile(props.lon, props.zoom);
+  // const y = lat2tile(props.lat, props.zoom);
+  const x = Math.floor(Math.random() * Math.pow(2, props.zoom - 1));
+  const y = Math.floor(Math.random() * Math.pow(2, props.zoom));
 
   const map = useMap();
-  console.log(map.latLngToLayerPoint);
+  // console.log(map.latLngToLayerPoint);
   return (
     <ImageOverlay
       bounds={map.getBounds()}
+      opacity={1}
       url={`https://tile.openweathermap.org/map/${props.overlayType}/${props.zoom}/${x}/${y}.png?appid=911180d8058f1bd89a55b56be4c070d1`}
     ></ImageOverlay>
   );
 };
 
-const Maps = (props) => {
-  const zoom = 4;
+const Leaflet = (props) => {
+  const [zoom, setZoom] = useState(3);
+  const mapRef = useRef();
+
+  useEffect(() => {
+    {
+      mapRef.current && setZoom(mapRef.current._zoom);
+    }
+  }, [mapRef, zoom]);
 
   return (
     <MapContainer
       center={[props.lat, props.lon]}
       zoom={zoom}
       scrollWheelZoom={false}
-      dragging={false}
-      zoomControl={false}
-      style={{ height: '500px', width: '500px' }}
+      dragging={true}
+      zoomControl={true}
+      style={{ height: '93vh', width: '100vw' }}
+      ref={mapRef}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -60,4 +71,4 @@ const Maps = (props) => {
   );
 };
 
-export default Maps;
+export default Leaflet;

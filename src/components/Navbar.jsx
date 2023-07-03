@@ -14,33 +14,46 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import MapIcon from '@mui/icons-material/Map';
 import InfoIcon from '@mui/icons-material/Info';
+
+import { Link } from 'react-router-dom';
+
 export default function Navbar() {
   const [open, setOpen] = React.useState(false);
   const list = () => (
     <Box
       sx={{ width: { sm: '100vw', xs: '100vw', md: '40vw', lg: '20vw' } }}
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
+      // onClick={toggleDrawer(false)}
+      // onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {['Home', 'History', 'Maps', 'About'].map((text, index) => (
+        {[
+          'Home',
+          'History',
+          'Precipitation',
+          'Temperature',
+          'GoogleMaps',
+          'About',
+        ].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index === 0 && <HomeIcon />}
-                {index === 1 && <NightsStayIcon />}
-                {index === 2 && <MapIcon />}
-                {index === 3 && <InfoIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+            <Link
+              to={text.toLocaleLowerCase()}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  {index === 0 && <HomeIcon />}
+                  {index === 1 && <NightsStayIcon />}
+                  {index >= 2 && index <= 5 && <MapIcon />}
+                  {index === 6 && <InfoIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -63,7 +76,9 @@ export default function Navbar() {
           component="div"
           sx={{ flexGrow: 1, color: 'black' }}
         >
-          Farmsetu
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            Farmsetu
+          </Link>
         </Typography>
         <IconButton
           size="large"

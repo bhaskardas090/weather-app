@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+const api = import.meta.env.VITE_WEATHER_API;
+const key = import.meta.env.VITE_WEATHER_API_KEY;
+
 function useHistoryForecast() {
   const [data, setData] = useState();
   const handleDateChange = (date, lat, lon) => {
@@ -8,7 +11,7 @@ function useHistoryForecast() {
     const getData = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/3.0/onecall/timemachine?units=metric&lat=${lat}&lon=${lon}&dt=${unixDate}&appid=3e3dc1035300fb294651b533fa5d61df`
+          `${api}/timemachine?units=metric&lat=${lat}&lon=${lon}&dt=${unixDate}&appid=${key}`
         );
         const data = await response.json();
         setData(data);
